@@ -12,7 +12,7 @@ services:
     secrets:
       - cf-app-trustin-tech-tunnel-api-token
     environment:
-      - TUNNEL_TOKEN=/run/secrets/cf-app-trustin-tech-tunnel-api-token
+      - TUNNEL_TOKEN_FILE=/run/secrets/cf-app-trustin-tech-tunnel-api-token
     networks:
       proxy:
     command: ["tunnel", "--no-autoupdate", "run"]

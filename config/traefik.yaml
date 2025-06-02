@@ -5,8 +5,8 @@ global:
 log:
   level: DEBUG
 
-# api:
-#   dashboard: true
+api:
+  dashboard: true
 #   insecure: true
 
 entryPoints:

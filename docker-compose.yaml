@@ -21,6 +21,7 @@ services:
       - ./config/traefik.yaml:/etc/traefik/traefik.yaml:ro # update it to be in the OS /etc/traefik
       - ./certs:/var/traefik/certs:rw
     labels:
+      - "traefik.enable=true"
       - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik-dashboard.app.trustin.tech`)"
     networks:
       proxy:

@@ -1,20 +1,40 @@
+secrets:
+  cf-dns-api-token:
+    file: ./.secrets/cf-dns-api-token
+  cf-app-trustin-tech-tunnel-api-token:
+    file: ./.secrets/cf-app-trustin-tech-tunnel-api-token
+
 services:
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: unless-stopped
+    secrets:
+      - cf-app-trustin-tech-tunnel-api-token
+    environment:
+      - TUNNEL_TOKEN=/run/secrets/cf-app-trustin-tech-tunnel-api-token
+    networks:
+      proxy:
+    command: ["tunnel", "--no-autoupdate"]
+
   traefik:
     image: traefik:latest
     container_name: traefik
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
+    secrets:
+      - cf-dns-api-token
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
     ports:
       - 80:80
       - 443:443
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
     environment:
-      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+      - CF_DNS_API_TOKEN=/run/secrets/cf-dns-api-token
     volumes:
       # - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro

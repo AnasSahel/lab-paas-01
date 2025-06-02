@@ -28,6 +28,7 @@ services:
       - "traefik.http.routers.traefik-dashboard-https.tls.certresolver=cloudflare"
       - "traefik.http.routers.traefik-dashboard-https.entrypoints=websecure"
       - "traefik.http.routers.traefik-dashboard-https.rule=Host(`traefik-dashboard.app.trustin.tech`)"
+      - "traefik.http.routers.traefik-dashboard-https.service=api@internal"
     networks:
       proxy:
 

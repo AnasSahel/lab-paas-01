@@ -15,7 +15,7 @@ services:
       - TUNNEL_TOKEN=/run/secrets/cf-app-trustin-tech-tunnel-api-token
     networks:
       proxy:
-    command: ["tunnel", "--no-autoupdate"]
+    command: ["tunnel", "--no-autoupdate", "run"]
 
   traefik:
     image: traefik:latest

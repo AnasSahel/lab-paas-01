@@ -11,10 +11,15 @@ services:
     ports:
       - 80:80
       - 443:443
+    env_file:
+      - .env
+    environment:
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     volumes:
       # - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./config/traefik.yaml:/etc/traefik/traefik.yaml:ro # update it to be in the OS /etc/traefik
+      - ./certs:/var/traefik/certs:rw
     labels:
       - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik-dashboard.app.trustin.tech`)"
     networks:

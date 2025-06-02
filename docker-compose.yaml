@@ -11,10 +11,12 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 8080:8080
     volumes:
-      - /etc/localtime:/etc/localtime:ro
+      # - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config/traefik.yaml:/etc/traefik/traefik.yaml:ro # update it to be in the OS /etc/traefik
+    labels:
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik-dashboard.app.trustin.tech`)"
     networks:
       proxy:
 

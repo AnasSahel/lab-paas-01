@@ -22,12 +22,14 @@ services:
       - ./certs:/var/traefik/certs:rw
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik-dashboard-http.rule=Host(`traefik-dashboard.app.trustin.tech`)"
       - "traefik.http.routers.traefik-dashboard-http.entrypoints=web"
-      - "traefik.http.routers.traefik-dashboard-https.tls=true"
-      - "traefik.http.routers.traefik-dashboard-https.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-dashboard-http.rule=Host(`traefik-dashboard.app.trustin.tech`)"
       - "traefik.http.routers.traefik-dashboard-https.entrypoints=websecure"
       - "traefik.http.routers.traefik-dashboard-https.rule=Host(`traefik-dashboard.app.trustin.tech`)"
+      - "traefik.http.routers.traefik-dashboard-https.tls=true"
+      - "traefik.http.routers.traefik-dashboard-https.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-dashboard-https.tls.domains[0].main=app.trustin.tech"
+      - "traefik.http.routers.traefik-dashboard-https.tls.domains[0].sans=*.app.trustin.tech"
       - "traefik.http.routers.traefik-dashboard-https.service=api@internal"
     networks:
       proxy:
